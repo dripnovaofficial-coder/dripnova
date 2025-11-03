@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>DripNova — Streetwear</title>
+<style>
+  /* Minimal modern styling: gold & black theme, simple layout */
+  :root{
+    --bg:#0b0b0b; --card:#0f0f0f; --gold:#c79b3a; --muted:#bfbfbf;
+    --maxw:1100px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#eee;line-height:1.4}
+  .container{max-width:var(--maxw);margin:24px auto;padding:0 18px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand img{height:60px;width:60px;object-fit:contain;border-radius:6px}
+  .brand h1{font-size:20px;margin:0;letter-spacing:1px;color:var(--gold)}
+  nav a{color:var(--muted);text-decoration:none;margin-left:16px}
+  .hero{display:flex;gap:28px;align-items:center;margin:28px 0;padding:28px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))}
+  .hero-left{flex:1}
+  .hero h2{font-size:36px;margin:0;color:var(--gold)}
+  .hero p{color:var(--muted);margin-top:8px}
+  .cta{margin-top:16px}
+  .btn{background:var(--gold);color:#0b0b0b;padding:10px 16px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
+  .shop{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:20px}
+  .card{background:var(--card);padding:12px;border-radius:10px}
+  .card img{width:100%;height:180px;object-fit:cover;border-radius:8px}
+  .card h3{margin:10px 0 4px;font-size:16px}
+  .price{color:var(--gold);font-weight:700}
+  .card .actions{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+  .small{font-size:13px;color:var(--muted)}
+  /* Cart modal */
+  .cart-btn{position:fixed;right:20px;bottom:20px;background:var(--gold);border-radius:999px;padding:12px 14px;border:0;color:#070707;box-shadow:0 6px 18px rgba(0,0,0,.6);cursor:pointer}
+  .cart-panel{position:fixed;right:20px;bottom:80px;width:320px;max-height:70vh;overflow:auto;background:#0b0b0b;border:1px solid rgba(255,255,255,0.04);padding:14px;border-radius:12px;display:none}
+  .line{display:flex;justify-content:space-between;align-items:center;margin:8px 0;padding-bottom:8px;border-bottom:1px dashed rgba(255,255,255,0.03)}
+  .footer{margin-top:34px;padding:24px;border-top:1px solid rgba(255,255,255,0.03);display:flex;gap:18px;flex-wrap:wrap}
+  /* newsletter */
+  .newsletter{display:flex;gap:8px}
+  .newsletter input{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:#0b0b0b;color:#fff}
+  .insta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px}
+  .insta-grid img{width:100%;height:90px;object-fit:cover;border-radius:6px}
+  form.contact{display:flex;flex-direction:column;gap:8px}
+  form.contact input, form.contact textarea{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:#0b0b0b;color:#fff}
+  .note{font-size:13px;color:var(--muted)}
+  @media(max-width:640px){ .hero h2{font-size:24px} .brand img{height:48px;width:48px} }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <img src="logo.png" alt="DripNova logo" onerror="this.style.display='none'">
+        <div>
+          <h1>DripNova</h1>
+          <div class="note">Luxury Streetwear • Your Style — Your Star</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#shop">Shop</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-left">
+        <h2>Drop bold. Wear the future.</h2>
+        <p class="note">Streetwear with a luxury touch. Minimal lines, bold attitude — DripNova fits the star in you.</p>
+        <div class="cta">
+          <button class="btn" onclick="document.getElementById('shop').scrollIntoView()">Shop Now</button>
+        </div>
+      </div>
+      <div style="width:360px">
+        <img src="logo.png" alt="logo" style="width:100%;height:230px;object-fit:contain;border-radius:10px;display:block;margin-left:auto" onerror="this.style.display='none'">
+      </div>
+    </section>
+
+    <section id="shop">
+      <h3 style="color:var(--gold)">Shop</h3>
+      <div class="shop" id="productGrid">
+        <!-- Products injected by JS -->
+      </div>
+    </section>
+
+    <section style="margin-top:28px">
+      <h3 style="color:var(--gold)">Stay in the loop</h3>
+      <p class="note">Sign up for drops and exclusive offers.</p>
+      <div style="display:flex;gap:18px;align-items:center;margin-top:8px">
+        <div class="newsletter">
+          <input id="newsEmail" placeholder="you@domain.com" />
+          <button class="btn" onclick="subscribe()">Subscribe</button>
+        </div>
+        <div id="newsMsg" class="note"></div>
+      </div>
+      <div style="margin-top:18px">
+        <div class="note">Instagram</div>
+        <div class="insta-grid" id="instaFeed">
+          <!-- Placeholder images -->
+          <img src="https://picsum.photos/seed/1/500/500" alt="">
+          <img src="https://picsum.photos/seed/2/500/500" alt="">
+          <img src="https://picsum.photos/seed/3/500/500" alt="">
+          <img src="https://picsum.photos/seed/4/500/500" alt="">
+          <img src="https://picsum.photos/seed/5/500/500" alt="">
+          <img src="https://picsum.photos/seed/6/500/500" alt="">
+        </div>
+      </div>
+    </section>
+
+    <section id="blog" style="margin-top:28px">
+      <h3 style="color:var(--gold)">Blog / Style Journal</h3>
+      <p class="note">Short posts about drops, styling, and news. (Link these to full blog pages as you expand.)</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+        <div style="background:var(--card);padding:12px;border-radius:8px;width:260px">
+          <h4 style="margin:0 0 6px">How to wear oversized hoodies</h4>
+          <p class="small">Quick tips on streetwear layering. <a href="#" style="color:var(--gold)">Read</a></p>
+        </div>
+        <div style="background:var(--card);padding:12px;border-radius:8px;width:260px">
+          <h4 style="margin:0 0 6px">Sneaker care 101</h4>
+          <p class="small">Keep the drip fresh. <a href="#" style="color:var(--gold)">Read</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:28px">
+      <h3 style="color:var(--gold)">Contact</h3>
+      <p class="note">Have questions? Send us a message.</p>
+      <form class="contact" onsubmit="event.preventDefault(); contactSubmit()">
+        <input id="cname" placeholder="Your name" required/>
+        <input id="cemail" placeholder="Your email" type="email" required/>
+        <textarea id="cmsg" placeholder="Message" rows="4" required></textarea>
+        <button class="btn" type="submit">Send Message</button>
+        <div id="contactMsg" class="note"></div>
+      </form>
+    </section>
+
+    <footer class="footer">
+      <div>
+        <strong style="color:var(--gold)">DripNova</strong>
+        <div class="small">Streetwear • Luxury • Futuristic</div>
+      </div>
+      <div style="margin-left:auto" class="small">© <span id="year"></span> DripNova — All rights reserved.</div>
+    </footer>
+  </div>
+
+  <!-- Cart button + panel -->
+  <button class="cart-btn" onclick="toggleCart()">Cart (<span id="cartCount">0</span>)</button>
+  <div class="cart-panel" id="cartPanel">
+    <h4 style="margin:0 0 8px">Your Cart</h4>
+    <div id="cartItems"></div>
+    <div id="cartTotal" style="margin-top:10px;font-weight:700"></div>
+    <div style="margin-top:10px;display:flex;gap:8px">
+      <button class="btn" onclick="checkout()">Checkout (Demo)</button>
+      <button style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:8px;border-radius:8px;cursor:pointer" onclick="clearCart()">Clear</button>
+    </div>
+    <div style="margin-top:8px;font-size:12px;color:var(--muted)">This checkout is a demo. To accept real payments connect Stripe or another gateway.</div>
+  </div>
+
+<script>
+  // Simple in-browser product list & cart: Replace with real data later
+  const products = [
+    {id:1,name:"Nova Hoodie",price:78,image:"https://picsum.photos/seed/hoodie/600/400"},
+    {id:2,name:"Drip Runner Sneakers",price:120,image:"https://picsum.photos/seed/sneaker/600/400"},
+    {id:3,name:"Signature Cap",price:32,image:"https://picsum.photos/seed/cap/600/400"},
+    {id:4,name:"Minimal Tee",price:28,image:"https://picsum.photos/seed/tee/600/400"},
+    {id:5,name:"Futuristic Jacket",price:160,image:"https://picsum.photos/seed/jacket/600/400"},
+    {id:6,name:"Street Socks (3-pack)",price:12,image:"https://picsum.photos/seed/socks/600/400"}
+  ];
+
+  // render products
+  const grid = document.getElementById('productGrid');
+  products.forEach(p=>{
+    const card = document.createElement('div'); card.className='card';
+    card.innerHTML = `
+      <img src="${p.image}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <div class="small">Limited drop • Streetwear</div>
+      <div class="actions">
+        <div class="price">$${p.price.toFixed(2)}</div>
+        <button onclick="addToCart(${p.id})" class="btn" style="padding:8px 10px;font-size:14px">Add</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  // CART (simple)
+  let cart = JSON.parse(localStorage.getItem('dripCart')||'{}');
+
+  function saveCart(){ localStorage.setItem('dripCart', JSON.stringify(cart)); updateCartUI(); }
+  function cartCount(){ return Object.values(cart).reduce((s,i)=>s+i.qty,0) }
+  function updateCartUI(){
+    document.getElementById('cartCount').textContent = cartCount();
+    const itemsDiv = document.getElementById('cartItems'); itemsDiv.innerHTML='';
+    let total = 0;
+    for(const id in cart){
+      const it = cart[id];
+      total += it.price * it.qty;
+      const row = document.createElement('div'); row.className='line';
+      row.innerHTML = `<div>
+        <div style="font-weight:600">${it.name}</div>
+        <div class="small">$${it.price.toFixed(2)} × ${it.qty}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button style="background:transparent;border:0;color:var(--gold);cursor:pointer" onclick="changeQty(${id},1)">+</button>
+        <button style="background:transparent;border:0;color:var(--muted);cursor:pointer" onclick="changeQty(${id},-1)">−</button>
+      </div>`;
+      itemsDiv.appendChild(row);
+    }
+    document.getElementById('cartTotal').textContent = cartCount()?('Total: $'+total.toFixed(2)):'Cart is empty';
+  }
+
+  function addToCart(id){
+    const p = products.find(x=>x.id===id);
+    if(!cart[id]) cart[id]={...p,qty:0};
+    cart[id].qty++;
+    saveCart();
+    // small feedback
+    const old = document.querySelector('.btn[onclick="addToCart('+id+')"]');
+    old.textContent = 'Added';
+    setTimeout(()=>old.textContent='Add',700);
+  }
+
+  function changeQty(id,delta){
+    if(!cart[id]) return;
+    cart[id].qty += delta;
+    if(cart[id].qty<=0) delete cart[id];
+    saveCart();
+  }
+
+  function clearCart(){ cart={}; saveCart(); }
+  function toggleCart(){
+    const panel = document.getElementById('cartPanel');
+    panel.style.display = panel.style.display==='block'?'none':'block';
+  }
+
+  function checkout(){
+    if(!cartCount()){ alert('Cart is empty'); return; }
+    // Demo checkout: show a simple flow and clear cart
+    const summary = Object.values(cart).map(i=>`${i.name} × ${i.qty} — $${(i.price*i.qty).toFixed(2)}`).join('\\n');
+    const total = Object.values(cart).reduce((s,i)=>s+i.price*i.qty,0).toFixed(2);
+    const confirmMsg = `Demo Checkout:\\n\\n${summary}\\n\\nTOTAL: $${total}\\n\\n(This is a demo. To accept payments, integrate Stripe and a backend.)`;
+    alert(confirmMsg);
+    clearCart();
+  }
+
+  // newsletter mock
+  function subscribe(){
+    const email = document.getElementById('newsEmail').value.trim();
+    if(!email){ document.getElementById('newsMsg').textContent='Enter a valid email.'; return; }
+    document.getElementById('newsMsg').textContent = 'Thanks! We\'ll keep you posted.';
+    document.getElementById('newsEmail').value='';
+  }
+
+  // contact mock
+  function contactSubmit(){
+    const name = document.getElementById('cname').value.trim();
+    const email = document.getElementById('cemail').value.trim();
+    const msg = document.getElementById('cmsg').value.trim();
+    if(!name||!email||!msg){ document.getElementById('contactMsg').textContent='Please complete the form.'; return; }
+    document.getElementById('contactMsg').textContent = 'Thanks — message received (demo).';
+    // clear
+    document.getElementById('cname').value=''; document.getElementById('cemail').value=''; document.getElementById('cmsg').value='';
+  }
+
+  // init
+  document.getElementById('year').textContent = new Date().getFullYear();
+  updateCartUI();
+</script>
+</body>
+</html>
