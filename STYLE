@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Drip Nova – Home</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <img src="dripnova-logo.png" alt="Drip Nova" class="logo">
+  <nav>
+    <a href="shop.html">Shop</a>
+    <a href="cart.html">Cart <span id="header-cart-count">0</span></a>
+  </nav>
+</header>
+
+<main class="hero">
+  <div class="hero-left">
+    <h1>DRIP NOVA</h1>
+    <p>Minimal. Premium. Streetwear — Made for the bold.</p>
+    <a class="btn" href="shop.html">Shop Collection</a>
+  </div>
+  <div class="hero-right">
+    <img src="moving-forward-hoodie.png" alt="hero" />
+  </div>
+</main>
+
+<section class="featured">
+  <h2>Featured</h2>
+  <div id="featured-grid" class="products-grid"></div>
+</section>
+
+<footer class="site-footer">
+  <p>&copy; Drip Nova</p>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // show featured after products load
+  loadProducts().then(() => {
+    document.getElementById("header-cart-count").innerText = (JSON.parse(localStorage.getItem("cart")||"[]")).length;
+    // show first 3 as featured
+    const featured = products.slice(0,3);
+    const grid = document.getElementById("featured-grid");
+    grid.innerHTML = "";
+    featured.forEach(p=>{
+      const c = document.createElement("div");
+      c.className = "product-card";
+      c.innerHTML = `
+        <img src="${p.images[0]||''}" alt="${p.PRODUCT_NAME}">
+        <h3>${p.PRODUCT_NAME}</h3>
+        <p>PKR ${p.PRICE_PKR}</p>
+        <button class="view-btn" onclick="viewProduct('${p.PRODUCT_ID}')">View</button>
+      `;
+      grid.appendChild(c);
+    });
+  });
+</script>
+</body>
+</html>
