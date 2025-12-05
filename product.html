@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Product - Drip Nova</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <img src="dripnova-logo.png" alt="Drip Nova" class="logo">
+  <nav><a href="shop.html">← Back</a><a href="cart.html">Cart <span id="header-cart-count-3">0</span></a></nav>
+</header>
+
+<main class="product-page">
+  <div class="left-column">
+    <div class="slider-container">
+      <button class="prev-btn">&#10094;</button>
+      <div class="slider-images" id="slider-images"></div>
+      <button class="next-btn">&#10095;</button>
+    </div>
+    <div class="thumbnails" id="thumbnails"></div>
+  </div>
+
+  <div class="right-column">
+    <h2 id="product-name"></h2>
+    <p id="product-type"></p>
+    <p id="product-price"></p>
+
+    <section class="product-filters">
+      <label>Color:
+        <select id="product-color"></select>
+      </label>
+      <label>Size:
+        <select id="product-size"></select>
+      </label>
+      <label>Qty:
+        <input type="number" id="product-qty" value="1" min="1" style="width:72px;padding:6px;border-radius:6px;border:1px solid #333;background:#050505;color:#fff"/>
+      </label>
+    </section>
+
+    <button id="add-cart-btn" class="btn">Add to Cart</button>
+  </div>
+</main>
+
+<script src="script.js"></script>
+<script>
+  loadProducts().then(() => {
+    document.getElementById("header-cart-count-3").innerText = (JSON.parse(localStorage.getItem("cart")||"[]")).length;
+    loadSingleProductSlider();
+  });
+</script>
+</body>
+</html>
