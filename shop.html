@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Shop - Drip Nova</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <img src="dripnova-logo.png" alt="Drip Nova" class="logo">
+  <nav><a href="index.html">Home</a><a href="cart.html">Cart <span id="header-cart-count-2">0</span></a></nav>
+</header>
+
+<main>
+  <h1 class="shop-title">SHOP</h1>
+  <section id="product-list" class="product-grid"></section>
+</main>
+
+<script src="script.js"></script>
+<script>
+  loadProducts().then(() => {
+    document.getElementById("header-cart-count-2").innerText = (JSON.parse(localStorage.getItem("cart")||"[]")).length;
+    displayProductsOnly(products);
+  });
+</script>
+</body>
+</html>
