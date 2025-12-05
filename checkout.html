@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Checkout - Drip Nova</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <img src="dripnova-logo.png" alt="Drip Nova" class="logo">
+  <nav><a href="shop.html">← Shop</a><a href="cart.html">Cart</a></nav>
+</header>
+
+<main style="padding:28px;">
+  <h1>Checkout</h1>
+  <form id="checkout-form" style="max-width:600px">
+    <input id="cust-name" placeholder="Full name" required />
+    <input id="cust-phone" placeholder="Phone number" required />
+    <input id="cust-address" placeholder="Address" required />
+    <button class="btn" type="submit">Place Order (local)</button>
+  </form>
+</main>
+
+<script src="script.js"></script>
+<script>
+  document.getElementById("checkout-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    const cartNow = JSON.parse(localStorage.getItem("cart")||"[]");
+    if(!cartNow.length){ alert("Cart is empty"); return; }
+    // For now we perform local checkout: clear cart and redirect to thank-you
+    const order = {
+      name: document.getElementById("cust-name").value,
+      phone: document.getElementById("cust-phone").value,
+      address: document.getElementById("cust-address").value,
+      items: cartNow,
+      placedAt: new Date().toISOString()
+    };
+    // Save last order to localStorage for demonstration
+    localStorage.setItem("lastOrder", JSON.stringify(order));
+    localStorage.removeItem("cart");
+    window.location.href = "thankyou.html";
+  });
+</script>
+</body>
+</html>
