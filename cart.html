@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cart - Drip Nova</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <img src="dripnova-logo.png" alt="Drip Nova" class="logo">
+  <nav><a href="shop.html">← Continue shopping</a><a href="index.html">Home</a></nav>
+</header>
+
+<main style="padding:28px;">
+  <h1>Your Cart</h1>
+  <div id="cart-items"></div>
+  <h2>Total: <span id="cart-total">PKR 0</span></h2>
+  <div style="margin-top:16px">
+    <a href="checkout.html" class="btn">Proceed to Checkout</a>
+  </div>
+</main>
+
+<script src="script.js"></script>
+<script>
+  loadProducts().then(()=> {
+    // ensure cart refreshed
+    cart = JSON.parse(localStorage.getItem("cart")||"[]");
+    loadCart();
+  });
+</script>
+</body>
+</html>
